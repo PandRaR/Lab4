@@ -1,0 +1,330 @@
+C:\Users\Robert>aws elbv2 create-load-balancer --name RobertLAB4 --type application --scheme internet-facing --subnets subnet-8069cfeb subnet-05f1ed7f --security-groups sg-0234eb8bf062e6e4f
+{
+    "LoadBalancers": [
+        {
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:loadbalancer/app/RobertLAB4/3c934906048d9f29",
+            "DNSName": "RobertLAB4-852507104.us-east-2.elb.amazonaws.com",
+            "CanonicalHostedZoneId": "Z3AADJGX6KTTL2",
+            "CreatedTime": "2020-12-17T23:28:46.650000+00:00",
+            "LoadBalancerName": "RobertLAB4",
+            "Scheme": "internet-facing",
+            "VpcId": "vpc-d9be00b2",
+            "State": {
+                "Code": "provisioning"
+            },
+            "Type": "application",
+            "AvailabilityZones": [
+                {
+                    "ZoneName": "us-east-2b",
+                    "SubnetId": "subnet-05f1ed7f",
+                    "LoadBalancerAddresses": []
+                },
+                {
+                    "ZoneName": "us-east-2a",
+                    "SubnetId": "subnet-8069cfeb",
+                    "LoadBalancerAddresses": []
+                }
+            ],
+            "SecurityGroups": [
+                "sg-0234eb8bf062e6e4f"
+            ],
+            "IpAddressType": "ipv4"
+        }
+    ]
+}
+
+
+
+C:\Users\Robert>aws elbv2 set-security-groups --load-balancer-arn arn:aws:elasticloadbalancing:us-east-2:868639358029:loadbalancer/app/RobertLAB4/3c934906048d9f29 --security-groups sg-0234eb8bf062e6e4f
+{
+    "SecurityGroupIds": [
+        "sg-0234eb8bf062e6e4f"
+    ]
+}
+
+
+C:\Users\Robert>aws ec2 run-instances --image-id
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
+aws: error: argument --image-id: expected one argument
+
+
+C:\Users\Robert>ami-044f6a201d97a6f29 --count 2 --instance-type t2.micro --key-name KeyLab3 --associate-public-ip-address --security-group-ids sg-0234eb8bf062e6e4f
+'ami-044f6a201d97a6f29' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\Robert>aws ec2 run-instances --image-id ami-044f6a201d97a6f29 --count 2 --instance-type t2.micro --key-name KeyLab3 --associate-public-ip-address --security-group-ids sg-0234eb8bf062e6e4f
+{
+    "Groups": [],
+    "Instances": [
+        {
+            "AmiLaunchIndex": 0,
+            "ImageId": "ami-044f6a201d97a6f29",
+            "InstanceId": "i-02e1bc33d1604279e",
+            "InstanceType": "t2.micro",
+            "KeyName": "KeyLab3",
+            "LaunchTime": "2020-12-17T23:33:13+00:00",
+            "Monitoring": {
+                "State": "disabled"
+            },
+            "Placement": {
+                "AvailabilityZone": "us-east-2c",
+                "GroupName": "",
+                "Tenancy": "default"
+            },
+            "PrivateDnsName": "ip-172-31-44-146.us-east-2.compute.internal",
+            "PrivateIpAddress": "172.31.44.146",
+            "ProductCodes": [],
+            "PublicDnsName": "",
+            "State": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "StateTransitionReason": "",
+            "SubnetId": "subnet-3e084f72",
+            "VpcId": "vpc-d9be00b2",
+            "Architecture": "x86_64",
+            "BlockDeviceMappings": [],
+            "ClientToken": "b9504a8a-448b-428b-a859-c1fdae8415c5",
+            "EbsOptimized": false,
+            "EnaSupport": true,
+            "Hypervisor": "xen",
+            "NetworkInterfaces": [
+                {
+                    "Attachment": {
+                        "AttachTime": "2020-12-17T23:33:13+00:00",
+                        "AttachmentId": "eni-attach-0bf809cab707eaba3",
+                        "DeleteOnTermination": true,
+                        "DeviceIndex": 0,
+                        "Status": "attaching"
+                    },
+                    "Description": "",
+                    "Groups": [
+                        {
+                            "GroupName": "lab3-sg",
+                            "GroupId": "sg-0234eb8bf062e6e4f"
+                        }
+                    ],
+                    "Ipv6Addresses": [],
+                    "MacAddress": "0a:54:a2:e3:57:52",
+                    "NetworkInterfaceId": "eni-01a48ea3230575b11",
+                    "OwnerId": "868639358029",
+                    "PrivateDnsName": "ip-172-31-44-146.us-east-2.compute.internal",
+                    "PrivateIpAddress": "172.31.44.146",
+                    "PrivateIpAddresses": [
+                        {
+                            "Primary": true,
+                            "PrivateDnsName": "ip-172-31-44-146.us-east-2.compute.internal",
+                            "PrivateIpAddress": "172.31.44.146"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Status": "in-use",
+                    "SubnetId": "subnet-3e084f72",
+                    "VpcId": "vpc-d9be00b2",
+                    "InterfaceType": "interface"
+                }
+            ],
+            "RootDeviceName": "/dev/xvda",
+            "RootDeviceType": "ebs",
+            "SecurityGroups": [
+                {
+                    "GroupName": "lab3-sg",
+                    "GroupId": "sg-0234eb8bf062e6e4f"
+                }
+            ],
+            "SourceDestCheck": true,
+            "StateReason": {
+                "Code": "pending",
+                "Message": "pending"
+            },
+            "VirtualizationType": "hvm",
+            "CpuOptions": {
+                "CoreCount": 1,
+                "ThreadsPerCore": 1
+            },
+            "CapacityReservationSpecification": {
+                "CapacityReservationPreference": "open"
+            },
+            "MetadataOptions": {
+                "State": "pending",
+                "HttpTokens": "optional",
+                "HttpPutResponseHopLimit": 1,
+                "HttpEndpoint": "enabled"
+            },
+            "EnclaveOptions": {
+                "Enabled": false
+            }
+        },
+        {
+            "AmiLaunchIndex": 1,
+            "ImageId": "ami-044f6a201d97a6f29",
+            "InstanceId": "i-07cfde174c2e3214a",
+            "InstanceType": "t2.micro",
+            "KeyName": "KeyLab3",
+            "LaunchTime": "2020-12-17T23:33:13+00:00",
+            "Monitoring": {
+                "State": "disabled"
+            },
+            "Placement": {
+                "AvailabilityZone": "us-east-2c",
+                "GroupName": "",
+                "Tenancy": "default"
+            },
+            "PrivateDnsName": "ip-172-31-35-252.us-east-2.compute.internal",
+            "PrivateIpAddress": "172.31.35.252",
+            "ProductCodes": [],
+            "PublicDnsName": "",
+            "State": {
+                "Code": 0,
+                "Name": "pending"
+            },
+            "StateTransitionReason": "",
+            "SubnetId": "subnet-3e084f72",
+            "VpcId": "vpc-d9be00b2",
+            "Architecture": "x86_64",
+            "BlockDeviceMappings": [],
+            "ClientToken": "b9504a8a-448b-428b-a859-c1fdae8415c5",
+            "EbsOptimized": false,
+            "EnaSupport": true,
+            "Hypervisor": "xen",
+            "NetworkInterfaces": [
+                {
+                    "Attachment": {
+                        "AttachTime": "2020-12-17T23:33:13+00:00",
+                        "AttachmentId": "eni-attach-0eda44fce1028edfc",
+                        "DeleteOnTermination": true,
+                        "DeviceIndex": 0,
+                        "Status": "attaching"
+                    },
+                    "Description": "",
+                    "Groups": [
+                        {
+                            "GroupName": "lab3-sg",
+                            "GroupId": "sg-0234eb8bf062e6e4f"
+                        }
+                    ],
+                    "Ipv6Addresses": [],
+                    "MacAddress": "0a:31:c9:04:08:26",
+                    "NetworkInterfaceId": "eni-07ff75162d84fc32e",
+                    "OwnerId": "868639358029",
+                    "PrivateDnsName": "ip-172-31-35-252.us-east-2.compute.internal",
+                    "PrivateIpAddress": "172.31.35.252",
+                    "PrivateIpAddresses": [
+                        {
+                            "Primary": true,
+                            "PrivateDnsName": "ip-172-31-35-252.us-east-2.compute.internal",
+                            "PrivateIpAddress": "172.31.35.252"
+                        }
+                    ],
+                    "SourceDestCheck": true,
+                    "Status": "in-use",
+                    "SubnetId": "subnet-3e084f72",
+                    "VpcId": "vpc-d9be00b2",
+                    "InterfaceType": "interface"
+                }
+            ],
+            "RootDeviceName": "/dev/xvda",
+            "RootDeviceType": "ebs",
+            "SecurityGroups": [
+                {
+                    "GroupName": "lab3-sg",
+                    "GroupId": "sg-0234eb8bf062e6e4f"
+                }
+            ],
+            "SourceDestCheck": true,
+            "StateReason": {
+                "Code": "pending",
+                "Message": "pending"
+            },
+            "VirtualizationType": "hvm",
+            "CpuOptions": {
+                "CoreCount": 1,
+                "ThreadsPerCore": 1
+            },
+            "CapacityReservationSpecification": {
+                "CapacityReservationPreference": "open"
+            },
+            "MetadataOptions": {
+                "State": "pending",
+                "HttpTokens": "optional",
+                "HttpPutResponseHopLimit": 1,
+                "HttpEndpoint": "enabled"
+            },
+            "EnclaveOptions": {
+                "Enabled": false
+            }
+        }
+    ],
+    "OwnerId": "868639358029",
+    "ReservationId": "r-0f8db06c7d541cb7e"
+}
+
+
+
+C:\Users\Robert>aws elbv2 create-target-group --name Robert-Target-Group --target-type instance --protocol HTTP --port 80 --vpc-id vpc-d9be00b2
+{
+    "TargetGroups": [
+        {
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:targetgroup/Robert-Target-Group/5cb0a14e642c9bed",
+            "TargetGroupName": "Robert-Target-Group",
+            "Protocol": "HTTP",
+            "Port": 80,
+            "VpcId": "vpc-d9be00b2",
+            "HealthCheckProtocol": "HTTP",
+            "HealthCheckPort": "traffic-port",
+            "HealthCheckEnabled": true,
+            "HealthCheckIntervalSeconds": 30,
+            "HealthCheckTimeoutSeconds": 5,
+            "HealthyThresholdCount": 5,
+            "UnhealthyThresholdCount": 2,
+            "HealthCheckPath": "/",
+            "Matcher": {
+                "HttpCode": "200"
+            },
+            "TargetType": "instance",
+            "ProtocolVersion": "HTTP1"
+        }
+    ]
+}
+
+
+C:\Users\Robert>aws elbv2 register-targets --target-group-arn arn:aws:elasticloadbalancing:us-east-2:868639358029:targetgroup/Robert-Target-Group/5cb0a14e642c9bed --targets Id=i-02e1bc33d1604279e Id=i-07cfde174c2e3214a
+
+
+C:\Users\Robert>aws elbv2 create-listener --load-balancer-arn arn:aws:elasticloadbalancing:us-east-2:868639358029:loadbalancer/app/RobertLAB4/3c934906048d9f29 --protocol HTTP --port 80 --default-actions Type=forward,TargetGroupArn=arn:aws:elasticloadbalancing:us-east-2:868639358029:targetgroup/Robert-Target-Group/5cb0a14e642c9bed
+{
+    "Listeners": [
+        {
+            "ListenerArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:listener/app/RobertLAB4/3c934906048d9f29/3780f96690de00c0",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:loadbalancer/app/RobertLAB4/3c934906048d9f29",
+            "Port": 80,
+            "Protocol": "HTTP",
+            "DefaultActions": [
+                {
+                    "Type": "forward",
+                    "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:targetgroup/Robert-Target-Group/5cb0a14e642c9bed",
+                    "ForwardConfig": {
+                        "TargetGroups": [
+                            {
+                                "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-2:868639358029:targetgroup/Robert-Target-Group/5cb0a14e642c9bed",
+                                "Weight": 1
+                            }
+                        ],
+                        "TargetGroupStickinessConfig": {
+                            "Enabled": false
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
+
+
